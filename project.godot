@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Flappy Bird"
-run/main_scene="res://Scenes/Intro.tscn"
+run/main_scene="res://Scenes/Game.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -34,5 +34,6 @@ pointing/emulate_touch_from_mouse=true
 
 [rendering]
 
+quality/2d/gles2_use_nvidia_rect_flicker_workaround=true
 environment/default_clear_color=Color( 0.145098, 0.156863, 0.188235, 1 )
 environment/default_environment="res://default_env.tres"
