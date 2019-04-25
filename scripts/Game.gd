@@ -15,6 +15,7 @@ func begin_game():
     $Bird.flying = true
     $Ground.moving = true
     $info.hide()
+    $Pipes/anim.play("move")
     playing = true
 
 

@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://sprites/background_day.png" type="Texture" id=2]
 [ext_resource path="res://props/Bird.tscn" type="PackedScene" id=3]
-[ext_resource path="res://props/Ground.tscn" type="PackedScene" id=4]
-[ext_resource path="res://sprites/label_get_ready.png" type="Texture" id=5]
-[ext_resource path="res://sprites/instructions.png" type="Texture" id=6]
+[ext_resource path="res://props/Pipes.tscn" type="PackedScene" id=4]
+[ext_resource path="res://props/Ground.tscn" type="PackedScene" id=5]
+[ext_resource path="res://sprites/label_get_ready.png" type="Texture" id=6]
+[ext_resource path="res://sprites/instructions.png" type="Texture" id=7]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,7 +20,10 @@ position = Vector2( 44.269, 100 )
 gravity_scale = 3.0
 flap_force = Vector2( 0, -150 )
 
-[node name="Ground" parent="." instance=ExtResource( 4 )]
+[node name="Pipes" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, 80 )
+
+[node name="Ground" parent="." instance=ExtResource( 5 )]
 position = Vector2( 72, 228 )
 
 [node name="info" type="Node2D" parent="."]
@@ -27,9 +31,9 @@ editor/display_folded = true
 
 [node name="get_ready" type="Sprite" parent="info"]
 position = Vector2( 72, 46.638 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="text" type="Sprite" parent="info"]
 position = Vector2( 72, 108.889 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
