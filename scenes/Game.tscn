@@ -16,11 +16,14 @@ centered = false
 
 [node name="Bird" parent="." instance=ExtResource( 3 )]
 position = Vector2( 44.269, 100 )
+gravity_scale = 3.0
+flap_force = Vector2( 0, -150 )
 
 [node name="Ground" parent="." instance=ExtResource( 4 )]
 position = Vector2( 72, 228 )
 
 [node name="info" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="get_ready" type="Sprite" parent="info"]
 position = Vector2( 72, 46.638 )

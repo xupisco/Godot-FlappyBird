@@ -3,7 +3,7 @@
 [ext_resource path="res://props/Ground.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ground.png" type="Texture" id=2]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "moving"
 length = 2.0
 loop = true
@@ -32,7 +32,7 @@ tracks/1/keys = {
 "values": [ Vector2( 168, 0 ), Vector2( 60, 0 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 28.0248 )
 
 [node name="Ground" type="StaticBody2D"]
@@ -47,9 +47,12 @@ texture = ExtResource( 2 )
 
 [node name="anin" type="AnimationPlayer" parent="."]
 autoplay = "moving"
-anims/moving = SubResource( 2 )
+anims/moving = SubResource( 1 )
 
-[node name="coll" type="CollisionShape2D" parent="."]
+[node name="body" type="RigidBody2D" parent="."]
 position = Vector2( -28.9915, 0 )
-shape = SubResource( 1 )
+mode = 1
+
+[node name="coll" type="CollisionShape2D" parent="body"]
+shape = SubResource( 2 )
 
