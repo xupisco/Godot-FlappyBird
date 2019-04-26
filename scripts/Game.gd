@@ -18,7 +18,6 @@ func begin_game():
     $info.hide()
     playing = true
     $pipe_spawner.start()
-    _on_pipe_spawner_timeout()
 
 
 func _on_add_score():

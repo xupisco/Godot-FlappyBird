@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://sprites/background_day.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://sprites/label_get_ready.png" type="Texture" id=6]
 [ext_resource path="res://sprites/instructions.png" type="Texture" id=7]
 [ext_resource path="res://sfx/sfx_point.ogg" type="AudioStream" id=8]
+[ext_resource path="res://sprites/number_large_2.png" type="Texture" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -50,5 +51,18 @@ stream = ExtResource( 8 )
 
 [node name="pipe_spawner" type="Timer" parent="."]
 wait_time = 1.5
+
+[node name="GUI" type="CenterContainer" parent="."]
+visible = false
+anchor_right = 1.0
+margin_right = 144.0
+margin_bottom = 51.0
+
+[node name="TextureRect" type="TextureRect" parent="GUI"]
+margin_left = 66.0
+margin_top = 16.0
+margin_right = 78.0
+margin_bottom = 34.0
+texture = ExtResource( 9 )
 
 [connection signal="timeout" from="pipe_spawner" to="." method="_on_pipe_spawner_timeout"]
