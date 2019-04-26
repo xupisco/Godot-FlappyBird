@@ -8,7 +8,7 @@
 [ext_resource path="res://sprites/label_get_ready.png" type="Texture" id=6]
 [ext_resource path="res://sprites/instructions.png" type="Texture" id=7]
 [ext_resource path="res://sfx/sfx_point.ogg" type="AudioStream" id=8]
-[ext_resource path="res://sprites/number_large_2.png" type="Texture" id=9]
+[ext_resource path="res://props/ScoreNum.tscn" type="PackedScene" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -53,16 +53,20 @@ stream = ExtResource( 8 )
 wait_time = 1.5
 
 [node name="GUI" type="CenterContainer" parent="."]
-visible = false
 anchor_right = 1.0
 margin_right = 144.0
 margin_bottom = 51.0
 
-[node name="TextureRect" type="TextureRect" parent="GUI"]
-margin_left = 66.0
-margin_top = 16.0
-margin_right = 78.0
-margin_bottom = 34.0
-texture = ExtResource( 9 )
+[node name="hbox" type="HBoxContainer" parent="GUI"]
+margin_left = 72.0
+margin_top = 25.0
+margin_right = 72.0
+margin_bottom = 25.0
+custom_constants/separation = 2
+alignment = 1
+
+[node name="ScoreNum" parent="GUI/hbox" instance=ExtResource( 9 )]
+margin_right = 0.0
+margin_bottom = 0.0
 
 [connection signal="timeout" from="pipe_spawner" to="." method="_on_pipe_spawner_timeout"]

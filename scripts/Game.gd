@@ -1,26 +1,38 @@
 extends Node2D
 
+signal score_changed
 
-var playing: bool = false;
+var playing: bool = false
 var pipes = preload("res://props/Pipes.tscn")
+var score: int = 0
 
 func _ready():
     randomize()
+    $GUI.hide()
     $bgs.frame = randi() % 2
+
 
 func _process(delta):
     pass
+
+
+func build_score():
+    emit_signal("score_changed")
 
 
 func begin_game():
     $Bird.flying = true
     $Ground.moving = true
     $info.hide()
+    build_score()
+    $GUI.show()
     playing = true
     $pipe_spawner.start()
 
 
 func _on_add_score():
+    score += 1
+    build_score()
     $sfx_score.play()
 
 
