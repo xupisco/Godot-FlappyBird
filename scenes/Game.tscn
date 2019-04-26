@@ -1,27 +1,35 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://sprites/background_day.png" type="Texture" id=2]
-[ext_resource path="res://props/Bird.tscn" type="PackedScene" id=3]
-[ext_resource path="res://props/Pipes.tscn" type="PackedScene" id=4]
+[ext_resource path="res://sprites/background_night.png" type="Texture" id=3]
+[ext_resource path="res://props/Bird.tscn" type="PackedScene" id=4]
 [ext_resource path="res://props/Ground.tscn" type="PackedScene" id=5]
 [ext_resource path="res://sprites/label_get_ready.png" type="Texture" id=6]
 [ext_resource path="res://sprites/instructions.png" type="Texture" id=7]
+[ext_resource path="res://sfx/sfx_point.ogg" type="AudioStream" id=8]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="bg" type="Sprite" parent="."]
-texture = ExtResource( 2 )
+[node name="bgs" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
 centered = false
 
-[node name="Bird" parent="." instance=ExtResource( 3 )]
+[node name="Bird" parent="." instance=ExtResource( 4 )]
 position = Vector2( 44.269, 100 )
-gravity_scale = 3.0
-flap_force = Vector2( 0, -150 )
+gravity_scale = 5.0
+flap_force = Vector2( 0, -200 )
 
-[node name="Pipes" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, 80 )
+[node name="PipeContainer" type="YSort" parent="."]
 
 [node name="Ground" parent="." instance=ExtResource( 5 )]
 position = Vector2( 72, 228 )
@@ -37,3 +45,10 @@ texture = ExtResource( 6 )
 position = Vector2( 72, 108.889 )
 texture = ExtResource( 7 )
 
+[node name="sfx_score" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[node name="pipe_spawner" type="Timer" parent="."]
+wait_time = 1.5
+
+[connection signal="timeout" from="pipe_spawner" to="." method="_on_pipe_spawner_timeout"]

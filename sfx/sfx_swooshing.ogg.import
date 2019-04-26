@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/sfx_swooshing.ogg-949f2ad4e33e9192ad6cf0949df3371e.oggstr"
+
+[deps]
+
+source_file="res://sfx/sfx_swooshing.ogg"
+dest_files=[ "res://.import/sfx_swooshing.ogg-949f2ad4e33e9192ad6cf0949df3371e.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
