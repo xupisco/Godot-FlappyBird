@@ -1,24 +1,37 @@
 extends Node2D
 
-signal score_changed
-
 var playing: bool = false
 var pipes = preload("res://props/Pipes.tscn")
+var score_num = preload("res://props/ScoreNum.tscn")
+var score_textures: Array = []
 var score: int = 0
+var scores: Array = []
 
 func _ready():
     randomize()
     $GUI.hide()
     $bgs.frame = randi() % 2
-
+    
+    for i in range(10):
+        var tex = load("res://sprites/number_large_" + str(i) + ".png")
+        score_textures.push_back(tex)
+    
 
 func _process(delta):
     pass
 
 
-func build_score():
-    emit_signal("score_changed")
+func build_score(): # Must have a better way to do this
+    for n in $GUI/hbox.get_children():
+        n.queue_free()
 
+    var score_text = str(score)
+    for s in score_text.length():
+        var t = TextureRect
+        var c = score_num.instance()
+        c.update_value(score_textures[int(score_text.substr(s, 1))])
+        $GUI/hbox.add_child(c)
+    
 
 func begin_game():
     $Bird.flying = true
