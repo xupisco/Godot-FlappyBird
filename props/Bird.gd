@@ -18,15 +18,24 @@ func _process(delta):
         mode = MODE_CHARACTER
         fly()
         game_started = true
-    rotation += rotation * delta
+ 
+
+func _physics_process(delta):
+    if rotation_degrees < -30:
+        rotation_degrees = -30
+        angular_velocity = 0
+
+    if linear_velocity.y > 0:
+        angular_velocity = 2
+
 
 func fly():
     $spr.frame = 1
     $spr.playing = true
     $sfx_flap.play()
     linear_velocity = Vector2.ZERO
-    rotation = 0
     apply_impulse(Vector2.UP, flap_force)
+    angular_velocity = -3
 
 
 func _input(event):
