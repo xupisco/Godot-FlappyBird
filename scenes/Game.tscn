@@ -44,6 +44,8 @@ centered = false
 [node name="Bird" parent="." instance=ExtResource( 4 )]
 position = Vector2( 44.269, 99.3005 )
 gravity_scale = 6.0
+contacts_reported = 1
+contact_monitor = true
 flap_force = Vector2( 0, -200 )
 
 [node name="PipeContainer" type="YSort" parent="."]
@@ -92,5 +94,6 @@ pause_mode = 2
 position = Vector2( 10, 10 )
 normal = ExtResource( 9 )
 
+[connection signal="body_entered" from="Bird" to="." method="_on_Bird_body_entered"]
 [connection signal="timeout" from="pipe_spawner" to="." method="_on_pipe_spawner_timeout"]
 [connection signal="released" from="btn_pause" to="." method="_on_btn_pause_released"]

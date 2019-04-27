@@ -3,6 +3,7 @@ extends RigidBody2D
 export(bool) var flying = false
 export(Vector2) var flap_force = Vector2()
 var game_started:bool = false
+var dead:bool = false
 
 
 func _ready():
@@ -33,6 +34,9 @@ func _physics_process(delta):
 
 
 func fly():
+    if dead:
+        return
+        rotation_degrees = 180
     $spr.frame = 1
     $spr.playing = true
     $sfx_flap.play()

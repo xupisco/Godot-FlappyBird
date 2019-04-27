@@ -46,6 +46,12 @@ func begin_game():
     playing = true
     $pipe_spawner.start()
 
+func died():
+    $Bird.dead = true
+    $pipe_spawner.stop()
+    $Ground.get_node("anin").stop()
+    for p in $PipeContainer.get_children():
+        p.get_node("anim").stop()
 
 func _on_add_score():
     score += 1
@@ -72,3 +78,8 @@ func _on_btn_pause_released():
         $btn_pause.normal = load("res://sprites/button_pause.png")
     paused = !paused
     get_tree().paused = paused
+
+
+func _on_Bird_body_entered(body):
+    if body.name != "trigger":
+        died()
