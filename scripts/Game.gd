@@ -1,6 +1,7 @@
 extends Node2D
 
 var playing: bool = false
+var paused: bool = false
 var pipes = preload("res://props/Pipes.tscn")
 var score_num = preload("res://props/ScoreNum.tscn")
 var score_textures: Array = []
@@ -11,6 +12,7 @@ func _ready():
     randomize()
     $GUI.hide()
     $bgs.frame = randi() % 2
+    $btn_pause.hide()
     
     for i in range(10):
         var tex = load("res://sprites/number_large_" + str(i) + ".png")
@@ -34,6 +36,8 @@ func build_score(): # Must have a better way to do this
     
 
 func begin_game():
+    $btn_pause.show()
+    $idle_anim.queue_free()
     $Bird.flying = true
     $Ground.moving = true
     $info.hide()
@@ -60,3 +64,11 @@ func _on_pipe_spawner_timeout():
     np.connect("add_score", self, "_on_add_score")
     $PipeContainer.add_child(np)
 
+
+func _on_btn_pause_released():
+    if not paused:
+        $btn_pause.normal = load("res://sprites/button_resume.png")
+    else:
+        $btn_pause.normal = load("res://sprites/button_pause.png")
+    paused = !paused
+    get_tree().paused = paused

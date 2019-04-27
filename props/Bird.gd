@@ -9,7 +9,6 @@ func _ready():
     randomize()
     $spr.play("fly_" + str(randi() % 2))
     if not flying:
-        $spr.playing = false
         mode = MODE_KINEMATIC
 
 
@@ -21,12 +20,16 @@ func _process(delta):
  
 
 func _physics_process(delta):
-    if rotation_degrees < -30:
-        rotation_degrees = -30
+    if rotation_degrees < -25:
+        rotation_degrees = -25
+        angular_velocity = 0
+        
+    if rotation_degrees > 180:
+        rotation_degrees = 180
         angular_velocity = 0
 
     if linear_velocity.y > 0:
-        angular_velocity = 2
+        angular_velocity = 3
 
 
 func fly():
@@ -34,8 +37,9 @@ func fly():
     $spr.playing = true
     $sfx_flap.play()
     linear_velocity = Vector2.ZERO
-    apply_impulse(Vector2.UP, flap_force)
-    angular_velocity = -3
+    linear_velocity.y = flap_force.y
+    #apply_impulse(Vector2.UP, flap_force)
+    angular_velocity = -5
 
 
 func _input(event):
@@ -44,4 +48,5 @@ func _input(event):
 
 
 func _on_spr_animation_finished():
-    $spr.playing = false;
+    if game_started:
+        $spr.playing = false;

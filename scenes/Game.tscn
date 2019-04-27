@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://sprites/background_day.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://sprites/label_get_ready.png" type="Texture" id=6]
 [ext_resource path="res://sprites/instructions.png" type="Texture" id=7]
 [ext_resource path="res://sfx/sfx_point.ogg" type="AudioStream" id=8]
+[ext_resource path="res://sprites/button_pause.png" type="Texture" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -17,6 +18,22 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="Animation" id=2]
+resource_name = "hovering"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Bird:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 44.269, 100 ), Vector2( 44.269, 96.7375 ), Vector2( 44.269, 100 ) ]
+}
+
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -25,14 +42,15 @@ frames = SubResource( 1 )
 centered = false
 
 [node name="Bird" parent="." instance=ExtResource( 4 )]
-position = Vector2( 44.269, 100 )
-gravity_scale = 5.0
+position = Vector2( 44.269, 99.3005 )
+gravity_scale = 6.0
 flap_force = Vector2( 0, -200 )
 
 [node name="PipeContainer" type="YSort" parent="."]
 
 [node name="Ground" parent="." instance=ExtResource( 5 )]
 position = Vector2( 72, 228 )
+moving = true
 
 [node name="info" type="Node2D" parent="."]
 editor/display_folded = true
@@ -49,9 +67,10 @@ texture = ExtResource( 7 )
 stream = ExtResource( 8 )
 
 [node name="pipe_spawner" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 1.4
 
 [node name="GUI" type="CenterContainer" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 margin_right = 144.0
 margin_bottom = 51.0
@@ -64,4 +83,14 @@ margin_bottom = 25.0
 custom_constants/separation = 2
 alignment = 1
 
+[node name="idle_anim" type="AnimationPlayer" parent="."]
+autoplay = "hovering"
+anims/hovering = SubResource( 2 )
+
+[node name="btn_pause" type="TouchScreenButton" parent="."]
+pause_mode = 2
+position = Vector2( 10, 10 )
+normal = ExtResource( 9 )
+
 [connection signal="timeout" from="pipe_spawner" to="." method="_on_pipe_spawner_timeout"]
+[connection signal="released" from="btn_pause" to="." method="_on_btn_pause_released"]
