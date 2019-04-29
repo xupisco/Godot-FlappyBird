@@ -1,6 +1,7 @@
 extends Node2D
 
 var playing: bool = false
+var dead: bool = false
 var paused: bool = false
 var pipes = preload("res://props/Pipes.tscn")
 var score_num = preload("res://props/ScoreNum.tscn")
@@ -47,11 +48,16 @@ func begin_game():
     $pipe_spawner.start()
 
 func died():
+    if dead:
+        return
+    $sfx_die.play()
     $Bird.dead = true
     $pipe_spawner.stop()
     $Ground.get_node("anin").stop()
     for p in $PipeContainer.get_children():
         p.get_node("anim").stop()
+    playing = false
+    dead = true
 
 func _on_add_score():
     score += 1
@@ -60,7 +66,7 @@ func _on_add_score():
 
 
 func _input(event):
-    if event.is_action_pressed("flap") and not playing:
+    if event.is_action_pressed("flap") and not playing and not dead:
         begin_game()
 
 
@@ -81,5 +87,5 @@ func _on_btn_pause_released():
 
 
 func _on_Bird_body_entered(body):
-    if body.name != "trigger":
+    if body.name != "trigger" and not dead:
         died()

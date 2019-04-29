@@ -25,18 +25,20 @@ func _physics_process(delta):
         rotation_degrees = -25
         angular_velocity = 0
         
-    if rotation_degrees > 180:
-        rotation_degrees = 180
+    if rotation_degrees > 90:
+        rotation_degrees = 90
         angular_velocity = 0
 
     if linear_velocity.y > 0:
         angular_velocity = 3
+    
+    if dead and linear_velocity.y <= 0:
+        rotation_degrees = 90
 
 
 func fly():
     if dead:
         return
-        rotation_degrees = 180
     $spr.frame = 1
     $spr.playing = true
     $sfx_flap.play()
@@ -47,7 +49,7 @@ func fly():
 
 
 func _input(event):
-    if event.is_action_pressed("flap"):
+    if event.is_action_pressed("flap") and not dead:
         fly() 
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://sprites/background_day.png" type="Texture" id=2]
@@ -8,7 +8,8 @@
 [ext_resource path="res://sprites/label_get_ready.png" type="Texture" id=6]
 [ext_resource path="res://sprites/instructions.png" type="Texture" id=7]
 [ext_resource path="res://sfx/sfx_point.ogg" type="AudioStream" id=8]
-[ext_resource path="res://sprites/button_pause.png" type="Texture" id=9]
+[ext_resource path="res://sfx/sfx_die.ogg" type="AudioStream" id=9]
+[ext_resource path="res://sprites/button_pause.png" type="Texture" id=10]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -68,6 +69,10 @@ texture = ExtResource( 7 )
 [node name="sfx_score" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 
+[node name="sfx_die" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = 2.0
+
 [node name="pipe_spawner" type="Timer" parent="."]
 wait_time = 1.4
 
@@ -92,8 +97,7 @@ anims/hovering = SubResource( 2 )
 [node name="btn_pause" type="TouchScreenButton" parent="."]
 pause_mode = 2
 position = Vector2( 10, 10 )
-normal = ExtResource( 9 )
-
+normal = ExtResource( 10 )
 [connection signal="body_entered" from="Bird" to="." method="_on_Bird_body_entered"]
 [connection signal="timeout" from="pipe_spawner" to="." method="_on_pipe_spawner_timeout"]
 [connection signal="released" from="btn_pause" to="." method="_on_btn_pause_released"]
