@@ -12,6 +12,7 @@ var scores: Array = []
 func _ready():
     randomize()
     $GUI.hide()
+    $GameOver.hide()
     $bgs.frame = randi() % 2
     $btn_pause.hide()
     
@@ -58,6 +59,7 @@ func died():
         p.get_node("anim").stop()
     playing = false
     dead = true
+    $GameOver.show()
 
 func _on_add_score():
     score += 1
@@ -68,6 +70,8 @@ func _on_add_score():
 func _input(event):
     if event.is_action_pressed("flap") and not playing and not dead:
         begin_game()
+    if event.is_action_pressed("restart"):
+        get_tree().reload_current_scene()
 
 
 func _on_pipe_spawner_timeout():
@@ -87,5 +91,8 @@ func _on_btn_pause_released():
 
 
 func _on_Bird_body_entered(body):
+    if body.name == "bottom" or body.name == "Ground":
+        if $Bird.mode != RigidBody2D.MODE_KINEMATIC:
+            $Bird.mode = RigidBody2D.MODE_KINEMATIC
     if body.name != "trigger" and not dead:
         died()

@@ -1,15 +1,20 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://sprites/background_day.png" type="Texture" id=2]
 [ext_resource path="res://sprites/background_night.png" type="Texture" id=3]
-[ext_resource path="res://props/Bird.tscn" type="PackedScene" id=4]
-[ext_resource path="res://props/Ground.tscn" type="PackedScene" id=5]
+[ext_resource path="res://props/Ground.tscn" type="PackedScene" id=4]
+[ext_resource path="res://props/Bird.tscn" type="PackedScene" id=5]
 [ext_resource path="res://sprites/label_get_ready.png" type="Texture" id=6]
 [ext_resource path="res://sprites/instructions.png" type="Texture" id=7]
 [ext_resource path="res://sfx/sfx_point.ogg" type="AudioStream" id=8]
 [ext_resource path="res://sfx/sfx_die.ogg" type="AudioStream" id=9]
 [ext_resource path="res://sprites/button_pause.png" type="Texture" id=10]
+[ext_resource path="res://sprites/label_game_over.png" type="Texture" id=11]
+[ext_resource path="res://sprites/panel_score.png" type="Texture" id=12]
+[ext_resource path="res://sprites/label_new.png" type="Texture" id=13]
+[ext_resource path="res://sprites/button_ok.png" type="Texture" id=14]
+[ext_resource path="res://sprites/button_share.png" type="Texture" id=15]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -42,18 +47,18 @@ script = ExtResource( 1 )
 frames = SubResource( 1 )
 centered = false
 
-[node name="Bird" parent="." instance=ExtResource( 4 )]
+[node name="PipeContainer" type="YSort" parent="."]
+
+[node name="Ground" parent="." instance=ExtResource( 4 )]
+position = Vector2( 72, 228 )
+moving = true
+
+[node name="Bird" parent="." instance=ExtResource( 5 )]
 position = Vector2( 44.269, 99.3005 )
 gravity_scale = 6.0
 contacts_reported = 1
 contact_monitor = true
 flap_force = Vector2( 0, -200 )
-
-[node name="PipeContainer" type="YSort" parent="."]
-
-[node name="Ground" parent="." instance=ExtResource( 5 )]
-position = Vector2( 72, 228 )
-moving = true
 
 [node name="info" type="Node2D" parent="."]
 editor/display_folded = true
@@ -77,7 +82,6 @@ volume_db = 2.0
 wait_time = 1.4
 
 [node name="GUI" type="CenterContainer" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 margin_right = 144.0
 margin_bottom = 51.0
@@ -87,7 +91,7 @@ margin_left = 72.0
 margin_top = 25.0
 margin_right = 72.0
 margin_bottom = 25.0
-custom_constants/separation = 2
+custom_constants/separation = 1
 alignment = 1
 
 [node name="idle_anim" type="AnimationPlayer" parent="."]
@@ -98,6 +102,33 @@ anims/hovering = SubResource( 2 )
 pause_mode = 2
 position = Vector2( 10, 10 )
 normal = ExtResource( 10 )
+
+[node name="GameOver" type="Node2D" parent="."]
+
+[node name="overlay" type="ColorRect" parent="GameOver"]
+margin_right = 144.0
+margin_bottom = 256.0
+color = Color( 0, 0, 0, 0.509804 )
+
+[node name="spr_gameover" type="Sprite" parent="GameOver"]
+position = Vector2( 72, 70 )
+texture = ExtResource( 11 )
+
+[node name="spr_panel" type="Sprite" parent="GameOver"]
+position = Vector2( 72, 128 )
+texture = ExtResource( 12 )
+
+[node name="spr_newbest" type="Sprite" parent="GameOver"]
+position = Vector2( 91.212, 132.051 )
+texture = ExtResource( 13 )
+
+[node name="btn_ok" type="TouchScreenButton" parent="GameOver"]
+position = Vector2( 23, 170 )
+normal = ExtResource( 14 )
+
+[node name="btn_share" type="TouchScreenButton" parent="GameOver"]
+position = Vector2( 80, 170 )
+normal = ExtResource( 15 )
 [connection signal="body_entered" from="Bird" to="." method="_on_Bird_body_entered"]
 [connection signal="timeout" from="pipe_spawner" to="." method="_on_pipe_spawner_timeout"]
 [connection signal="released" from="btn_pause" to="." method="_on_btn_pause_released"]

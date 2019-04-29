@@ -2,11 +2,11 @@
 
 [ext_resource path="res://props/Bird.gd" type="Script" id=1]
 [ext_resource path="res://sprites/bird_orange_0.png" type="Texture" id=2]
-[ext_resource path="res://sprites/bird_blue_0.png" type="Texture" id=3]
-[ext_resource path="res://sprites/bird_blue_1.png" type="Texture" id=4]
-[ext_resource path="res://sprites/bird_blue_2.png" type="Texture" id=5]
-[ext_resource path="res://sprites/bird_orange_1.png" type="Texture" id=6]
-[ext_resource path="res://sprites/bird_orange_2.png" type="Texture" id=7]
+[ext_resource path="res://sprites/bird_orange_1.png" type="Texture" id=3]
+[ext_resource path="res://sprites/bird_orange_2.png" type="Texture" id=4]
+[ext_resource path="res://sprites/bird_blue_0.png" type="Texture" id=5]
+[ext_resource path="res://sprites/bird_blue_1.png" type="Texture" id=6]
+[ext_resource path="res://sprites/bird_blue_2.png" type="Texture" id=7]
 [ext_resource path="res://sfx/sfx_wing.ogg" type="AudioStream" id=8]
 
 [sub_resource type="SpriteFrames" id=1]
@@ -16,19 +16,19 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "fly_1",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 6 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "fly_0",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "fly_1",
 "speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8.249, 6.11195 )
+extents = Vector2( 6.92783, 5.07337 )
 
 [node name="Bird" type="RigidBody2D"]
 mode = 2
