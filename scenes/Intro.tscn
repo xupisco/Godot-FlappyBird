@@ -37,5 +37,4 @@ pressed = ExtResource( 7 )
 position = Vector2( 80, 168 )
 normal = ExtResource( 8 )
 pressed = ExtResource( 9 )
-
 [connection signal="released" from="btn_play" to="." method="_on_btn_play_released"]

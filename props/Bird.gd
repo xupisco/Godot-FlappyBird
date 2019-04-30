@@ -26,14 +26,14 @@ func _physics_process(delta):
         angular_velocity = 0
 
     if linear_velocity.y > 0:
-        angular_velocity = 3
+        angular_velocity = 2.5
     
     if dead and linear_velocity.y <= 0:
         rotation_degrees = 90
 
 
 func fly():
-    if dead:
+    if dead or not flying:
         return
     $spr.frame = 1
     $spr.playing = true
@@ -42,7 +42,7 @@ func fly():
     rotation_degrees = 0
     linear_velocity.y = flap_force.y
     #apply_impulse(Vector2.UP, flap_force)
-    angular_velocity = -5
+    angular_velocity = -4
 
 
 func _input(event):

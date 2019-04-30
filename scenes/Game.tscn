@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://sprites/background_day.png" type="Texture" id=2]
@@ -16,6 +16,14 @@
 [ext_resource path="res://sprites/label_new.png" type="Texture" id=14]
 [ext_resource path="res://sprites/button_ok.png" type="Texture" id=15]
 [ext_resource path="res://sprites/button_share.png" type="Texture" id=16]
+[ext_resource path="res://props/end_score_num.tscn" type="PackedScene" id=17]
+[ext_resource path="res://sprites/medal_bronze.png" type="Texture" id=18]
+[ext_resource path="res://sprites/medal_silver.png" type="Texture" id=19]
+[ext_resource path="res://sprites/medal_gold.png" type="Texture" id=20]
+[ext_resource path="res://sprites/medal_platinum.png" type="Texture" id=21]
+[ext_resource path="res://sprites/spark_0.png" type="Texture" id=22]
+[ext_resource path="res://sprites/spark_1.png" type="Texture" id=23]
+[ext_resource path="res://sprites/spark_2.png" type="Texture" id=24]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -40,6 +48,22 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 44.269, 100 ), Vector2( 44.269, 96.7375 ), Vector2( 44.269, 100 ) ]
 }
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 23 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -105,7 +129,6 @@ position = Vector2( 10, 10 )
 normal = ExtResource( 10 )
 
 [node name="GameOver" type="Node2D" parent="."]
-visible = false
 script = ExtResource( 11 )
 
 [node name="overlay" type="ColorRect" parent="GameOver"]
@@ -132,6 +155,29 @@ normal = ExtResource( 15 )
 [node name="btn_share" type="TouchScreenButton" parent="GameOver"]
 position = Vector2( 80, 170 )
 normal = ExtResource( 16 )
+
+[node name="end_score_num" parent="GameOver" instance=ExtResource( 17 )]
+position = Vector2( 113.577, 121.561 )
+
+[node name="end_score_num2" parent="GameOver" instance=ExtResource( 17 )]
+position = Vector2( 113.577, 143.04 )
+
+[node name="medal" type="AnimatedSprite" parent="GameOver"]
+position = Vector2( 39.6113, 131.658 )
+frames = SubResource( 3 )
+
+[node name="meda_spark" type="AnimatedSprite" parent="GameOver"]
+position = Vector2( 46.6266, 123.77 )
+frames = SubResource( 4 )
+frame = 1
+playing = true
+
+[node name="meda_spark2" type="AnimatedSprite" parent="GameOver"]
+position = Vector2( 32.7194, 139.661 )
+frames = SubResource( 4 )
+frame = 2
+speed_scale = 2.0
+playing = true
 [connection signal="body_entered" from="Bird" to="." method="_on_Bird_body_entered"]
 [connection signal="timeout" from="pipe_spawner" to="." method="_on_pipe_spawner_timeout"]
 [connection signal="released" from="btn_pause" to="." method="_on_btn_pause_released"]

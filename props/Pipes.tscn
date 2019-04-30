@@ -68,6 +68,5 @@ shape = SubResource( 3 )
 [node name="anim" type="AnimationPlayer" parent="."]
 autoplay = "move"
 anims/move = SubResource( 4 )
-
 [connection signal="body_entered" from="pipe/trigger" to="." method="_on_trigger_body_entered"]
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
