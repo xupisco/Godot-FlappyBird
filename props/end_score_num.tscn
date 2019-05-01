@@ -21,3 +21,4 @@ animations = [ {
 
 [node name="end_score_num" type="AnimatedSprite"]
 frames = SubResource( 1 )
+centered = false
