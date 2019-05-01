@@ -175,12 +175,13 @@ frames = SubResource( 3 )
 [node name="meda_spark" type="AnimatedSprite" parent="GameOver"]
 position = Vector2( 46.6266, 123.77 )
 frames = SubResource( 4 )
+frame = 1
 playing = true
 
 [node name="meda_spark2" type="AnimatedSprite" parent="GameOver"]
 position = Vector2( 32.7194, 139.661 )
 frames = SubResource( 4 )
-frame = 1
+frame = 2
 speed_scale = 2.0
 playing = true
 [connection signal="body_entered" from="Bird" to="." method="_on_Bird_body_entered"]
