@@ -157,9 +157,16 @@ position = Vector2( 80, 170 )
 normal = ExtResource( 16 )
 
 [node name="final_score" type="Node2D" parent="GameOver"]
+editor/display_folded = true
 position = Vector2( 110.529, 116.474 )
 
 [node name="end_score_num" parent="GameOver/final_score" instance=ExtResource( 17 )]
+
+[node name="best_score" type="Node2D" parent="GameOver"]
+editor/display_folded = true
+position = Vector2( 110.529, 137.595 )
+
+[node name="end_score_num" parent="GameOver/best_score" instance=ExtResource( 17 )]
 
 [node name="medal" type="AnimatedSprite" parent="GameOver"]
 position = Vector2( 39.6113, 131.658 )
@@ -168,12 +175,12 @@ frames = SubResource( 3 )
 [node name="meda_spark" type="AnimatedSprite" parent="GameOver"]
 position = Vector2( 46.6266, 123.77 )
 frames = SubResource( 4 )
-frame = 2
 playing = true
 
 [node name="meda_spark2" type="AnimatedSprite" parent="GameOver"]
 position = Vector2( 32.7194, 139.661 )
 frames = SubResource( 4 )
+frame = 1
 speed_scale = 2.0
 playing = true
 [connection signal="body_entered" from="Bird" to="." method="_on_Bird_body_entered"]

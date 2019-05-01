@@ -5,11 +5,13 @@ var dead: bool = false
 var paused: bool = false
 var pipes = preload("res://props/Pipes.tscn")
 var score_num = preload("res://props/ScoreNum.tscn")
-var final_score_num = preload("res://props/end_score_num.tscn")
+var medium_nums = preload("res://props/end_score_num.tscn")
 var score_textures: Array = []
 var score: int = 0
 var score_value = 1
 var scores: Array = []
+const highscore_data = "user://score.data"
+var highscore = 0
 
 func _ready():
     randomize()
@@ -61,7 +63,14 @@ func died():
         p.get_node("anim").stop()
     playing = false
     dead = true
+    highscore = load_highscore()
+    $GameOver.get_node("spr_newbest").hide()
+    if score > highscore:
+        save_highscore()
+        highscore = score
+        $GameOver.get_node("spr_newbest").show()
     draw_final_scores()
+    draw_best_scores()
     $GameOver.show()
     
 
@@ -71,14 +80,47 @@ func draw_final_scores():
     var score_text = str(score)
     var start_pos = 0
     for s in score_text.length():
-        var fc = final_score_num.instance()
+        var fc = medium_nums.instance()
         fc.frame = int(score_text.substr(s, 1))
         if s > 0 and int(score_text.substr(s - 1, 1)) == 1:
             start_pos -= 2
         fc.position.x += 8 * s + start_pos
         $GameOver/final_score.add_child(fc)
     $GameOver/final_score.position.x -= start_pos + 8 * (score_text.length() - 1)
+    
+
+func draw_best_scores():
+    for n in $GameOver/best_score.get_children():
+        n.queue_free()
+    var score_text = str(highscore)
+    var start_pos = 0
+    for s in score_text.length():
+        var fc = medium_nums.instance()
+        fc.frame = int(score_text.substr(s, 1))
+        if s > 0 and int(score_text.substr(s - 1, 1)) == 1:
+            start_pos -= 2
+        fc.position.x += 8 * s + start_pos
+        $GameOver/best_score.add_child(fc)
+    $GameOver/best_score.position.x -= start_pos + 8 * (score_text.length() - 1)
         
+
+func load_highscore():
+    var file = File.new()
+    if not file.file_exists(highscore_data):
+        save_highscore()
+        return 0
+    file.open(highscore_data, File.READ)
+    var hs = file.get_var()
+    file.close()
+    return hs
+    
+    
+func save_highscore():
+    var file = File.new()
+    file.open(highscore_data, File.WRITE)
+    file.store_var(score)
+    file.close()
+
 
 func _on_add_score():
     score += score_value
